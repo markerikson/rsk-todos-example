@@ -14,11 +14,18 @@ const todosSlice = createSlice({
     addTodo(state, action) {
       const { id, text } = action.payload;
       state.push({ id, text, completed: false });
+    },
+    toggleTodo(state, action) {
+      const { id } = action.payload;
+      const todo = state.find(todo => todo.id === id);
+      if (todo) {
+        todo.completed = !todo.completed;
+      }
     }
   }
 });
 
-export const { addTodo } = todosSlice.actions;
+export const { addTodo, toggleTodo } = todosSlice.actions;
 
 export function addTodoWithId(text) {
   return addTodo({
