@@ -1,5 +1,7 @@
 import { createSlice } from "redux-starter-kit";
 
+let nextTodoId = 2;
+
 const initialState = [
   { id: 0, text: "Buy milk", completed: false },
   { id: 1, text: "Do laundry", completed: true }
@@ -17,5 +19,12 @@ const todosSlice = createSlice({
 });
 
 export const { addTodo } = todosSlice.actions;
+
+export function addTodoWithId(text) {
+  return addTodo({
+    id: nextTodoId++,
+    text
+  });
+}
 
 export default todosSlice.reducer;
