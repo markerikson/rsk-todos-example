@@ -1,12 +1,25 @@
 import React from "react";
 import {connect} from "react-redux";
 import {toggleTodo} from "./todos";
+import {VisibilityFilters} from "./visibilityFilters";
 
-const mapState = (state) => {
-  return {
-    todos : state.todos,
-  };
+const getVisibleTodos = (todos, filter) => {
+  switch (filter) {
+    case VisibilityFilters.SHOW_ALL:
+      return todos
+    case VisibilityFilters.SHOW_COMPLETED:
+      return todos.filter(t => t.completed)
+    case VisibilityFilters.SHOW_ACTIVE:
+      return todos.filter(t => !t.completed)
+    default:
+      throw new Error('Unknown filter: ' + filter)
+  }
 }
+
+const mapState = state => ({
+  todos: getVisibleTodos(state.todos, state.visibilityFilter)
+})
+
 
 const mapDispatch = {toggleTodo};
 
