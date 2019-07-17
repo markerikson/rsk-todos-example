@@ -1,4 +1,9 @@
-import {configureStore} from "redux-starter-kit";
+import { configureStore } from "redux-starter-kit";
 
-export const store = configureStore({});
+import todosReducer from "./todos";
 
+export const store = configureStore({
+  reducer: {
+    todos: todosReducer
+  }
+});
